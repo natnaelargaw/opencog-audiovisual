@@ -1,16 +1,18 @@
+#opencog-audio -Under Development	
 ## Installation
-* cd audioSystemNeeds
+* cd opencog-audiovisual
 * bash setup.sh
 
 # Running the code
 * ctrl +alt + t
 * roscore
 * ctrl + shift + t
-* cd audioSystemNeeds/src/simpleauditory/src
+* cd opencog-audiovisual/src/audioSystemNeeds/src/
 * chmod +x sound.py
-* cd ../../.. && catkin_make
+* cd ../../..
 * source devel/setup.bash
-* rosrun simpleauditory sound.py
+* catkin_make
+* rosrun audioSystemNeeds sound.py
 
 # Topics
 The decibel, the Intensity Trend and The boolean resut for the sudden change checker is published to
