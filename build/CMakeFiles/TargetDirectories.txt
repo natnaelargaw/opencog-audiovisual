@@ -1,0 +1,9 @@
+/home/natnael/opencog-audiovisual/build/audio_sys_needs/CMakeFiles/_catkin_empty_exported_target.dir
+/home/natnael/opencog-audiovisual/build/CMakeFiles/clean_test_results.dir
+/home/natnael/opencog-audiovisual/build/CMakeFiles/clean_test_results_Project.dir
+/home/natnael/opencog-audiovisual/build/CMakeFiles/download_extra_data.dir
+/home/natnael/opencog-audiovisual/build/CMakeFiles/doxygen.dir
+/home/natnael/opencog-audiovisual/build/gtest/CMakeFiles/gtest.dir
+/home/natnael/opencog-audiovisual/build/gtest/CMakeFiles/gtest_main.dir
+/home/natnael/opencog-audiovisual/build/CMakeFiles/run_tests.dir
+/home/natnael/opencog-audiovisual/build/CMakeFiles/tests.dir

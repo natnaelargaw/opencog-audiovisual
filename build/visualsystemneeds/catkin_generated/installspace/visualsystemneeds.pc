@@ -1,0 +1,8 @@
+prefix=/home/natnael/opencog-audiovisual/install
+
+Name: visualsystemneeds
+Description: Description of visualsystemneeds
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/natnael/opencog-audiovisual/install/lib 
+Requires: 

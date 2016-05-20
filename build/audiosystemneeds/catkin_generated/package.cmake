@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "audiosystemneeds")
+set(audiosystemneeds_MAINTAINER "natnael <natnael@todo.todo>")
+set(audiosystemneeds_DEPRECATED "")
+set(audiosystemneeds_VERSION "0.0.0")
+set(audiosystemneeds_BUILD_DEPENDS )
+set(audiosystemneeds_RUN_DEPENDS )
+set(audiosystemneeds_BUILDTOOL_DEPENDS "catkin")

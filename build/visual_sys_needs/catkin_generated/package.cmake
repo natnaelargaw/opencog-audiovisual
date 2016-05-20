@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "visual_sys_needs")
+set(visual_sys_needs_MAINTAINER "natnael <natnael@todo.todo>")
+set(visual_sys_needs_DEPRECATED "")
+set(visual_sys_needs_VERSION "0.0.0")
+set(visual_sys_needs_BUILD_DEPENDS )
+set(visual_sys_needs_RUN_DEPENDS )
+set(visual_sys_needs_BUILDTOOL_DEPENDS "catkin")
