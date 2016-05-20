@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/visualsysneeds.dir/src/imgsource.cpp.o  -o /home/natnael/opencog-audiovisual/devel/lib/visualsysneeds/visualsysneeds -rdynamic 

@@ -1,0 +1,8 @@
+prefix=/home/natnael/opencog-audiovisual/devel
+
+Name: visualsysneeds
+Description: Description of visualsysneeds
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/natnael/opencog-audiovisual/devel/lib 
+Requires: 

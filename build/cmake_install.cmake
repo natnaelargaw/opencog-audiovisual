@@ -117,10 +117,8 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unsp
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   INCLUDE("/home/natnael/opencog-audiovisual/build/gtest/cmake_install.cmake")
-  INCLUDE("/home/natnael/opencog-audiovisual/build/audio_sys_needs/cmake_install.cmake")
-  INCLUDE("/home/natnael/opencog-audiovisual/build/asn/cmake_install.cmake")
-  INCLUDE("/home/natnael/opencog-audiovisual/build/visual_sys_needs/cmake_install.cmake")
-  INCLUDE("/home/natnael/opencog-audiovisual/build/vsn/cmake_install.cmake")
+  INCLUDE("/home/natnael/opencog-audiovisual/build/audiosysneeds/cmake_install.cmake")
+  INCLUDE("/home/natnael/opencog-audiovisual/build/visualsysneeds/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 

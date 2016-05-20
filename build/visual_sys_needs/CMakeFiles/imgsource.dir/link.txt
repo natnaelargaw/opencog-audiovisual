@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/imgsource.dir/src/imgsource.cpp.o  -o /home/natnael/opencog-audiovisual/devel/lib/visual_sys_needs/imgsource -rdynamic 

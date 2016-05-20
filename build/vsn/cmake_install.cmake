@@ -33,17 +33,17 @@ IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/natnael/opencog-audiovisual/build/vsn/catkin_generated/installspace/visualsystemneeds.pc")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/natnael/opencog-audiovisual/build/vsn/catkin_generated/installspace/visual_sys_needs.pc")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/visualsystemneeds/cmake" TYPE FILE FILES
-    "/home/natnael/opencog-audiovisual/build/vsn/catkin_generated/installspace/visualsystemneedsConfig.cmake"
-    "/home/natnael/opencog-audiovisual/build/vsn/catkin_generated/installspace/visualsystemneedsConfig-version.cmake"
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/visual_sys_needs/cmake" TYPE FILE FILES
+    "/home/natnael/opencog-audiovisual/build/vsn/catkin_generated/installspace/visual_sys_needsConfig.cmake"
+    "/home/natnael/opencog-audiovisual/build/vsn/catkin_generated/installspace/visual_sys_needsConfig-version.cmake"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/visualsystemneeds" TYPE FILE FILES "/home/natnael/opencog-audiovisual/src/vsn/package.xml")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/visual_sys_needs" TYPE FILE FILES "/home/natnael/opencog-audiovisual/src/vsn/package.xml")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
