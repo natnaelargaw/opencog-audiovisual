@@ -1,8 +1,0 @@
-prefix=/home/natnael/opencog-audiovisual/devel
-
-Name: visual_sys_needs
-Description: Description of visual_sys_needs
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/natnael/opencog-audiovisual/devel/lib 
-Requires: 
