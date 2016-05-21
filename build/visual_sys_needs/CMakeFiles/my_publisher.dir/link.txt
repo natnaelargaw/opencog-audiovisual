@@ -1,1 +1,0 @@
-/usr/bin/c++       CMakeFiles/my_publisher.dir/src/imgsource.cpp.o  -o /home/natnael/opencog-audiovisual/devel/lib/visual_sys_needs/my_publisher -rdynamic 
