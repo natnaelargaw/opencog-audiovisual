@@ -16,9 +16,11 @@ def choasIdentifier(trend1):
     for i in trend1:
         sumOf= sumOf + i
     print(sumOf)
-    if sumOf > (frameConstant-7):                   return 'Chaotic'
+    if sumOf > (frameConstant-7):                 return 'Chaotic'
     elif sumOf < (-1 * frameConstant+7):          return 'Placid'
     else:                                         return 'Normal'
+
+
 
 def dequeImp(count, currentState):
     if count < frameConstant:# In case of 42, around 4s queue accumulation time

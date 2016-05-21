@@ -1,6 +1,0 @@
-<launch>
-    <include file="$(find visualsysneeds)/launch/camera.launch"/>
-    <node name="video" pkg="visualsysneeds" type="video" output="screen"></node>
-    <node name="listenthem" pkg="visualsysneeds" type="Listenthem.py" output="screen"></node>
-    
-</launch>
