@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "visualsysneeds")
+set(visualsysneeds_MAINTAINER "natnael <natnael@todo.todo>")
+set(visualsysneeds_DEPRECATED "")
+set(visualsysneeds_VERSION "0.0.0")
+set(visualsysneeds_BUILD_DEPENDS "cv_bridge" "image_transport" "roscpp" "rospy")
+set(visualsysneeds_RUN_DEPENDS "cv_bridge" "image_transport" "roscpp" "rospy")
+set(visualsysneeds_BUILDTOOL_DEPENDS "catkin")

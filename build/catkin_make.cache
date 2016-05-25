@@ -1,0 +1,2 @@
+audiosysneeds:visualsysneeds
+-DCATKIN_DEVEL_PREFIX=/home/natnael/opencog-audiovisual/devel -DCMAKE_INSTALL_PREFIX=/home/natnael/opencog-audiovisual/install -G Unix Makefiles
