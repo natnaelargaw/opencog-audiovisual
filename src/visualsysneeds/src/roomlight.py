@@ -11,21 +11,18 @@ import cv2
 
 roslib.load_manifest('visualsysneeds')
 
+
 '''
- big computational complexity: must check Light Extraction from HSV image or other approach
+This Class is contains the states and behaviours required to get the amount of light in a office/room.
  '''
-
-
 class RoomLight:
 
   def __init__(self):
-    self.font = cv2.FONT_HERSHEY_SIMPLEX
     self.pub = rospy.Publisher('/opencog/roomlight', String, queue_size=10)
     self.bridge = CvBridge()
-    self.image_sub = rospy.Subscriber("/usb_cam_node/image_raw",Image,self.callback)
+    self.image_sub = rospy.Subscriber("/usb_cam_node/image_raw",Image,self.getLightstate)
 
-
-
+  # Classify the frame based on the amount of pixel intensity near to white in the Grayscale equivalent
   def Visibility(self, data, row, col):
     total=0
     for i in range(row):
@@ -46,27 +43,25 @@ class RoomLight:
     else:
         return 'Bright'
 
-
-  def callback(self,data):
+  # Callback function
+  def getLightstate(self,data):
     try:
         cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
         gray = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
         h, w = cv_image.shape[:2]
+
+        # will be used to check for side blocks; L and R blocks
         gray2 = gray[0:h,0:w/2]
         gray3 = gray[0:h, w/2:w]
 
-        # cv2.putText(cv_image,(self.Visibility(gray2,h, 320)),(10,240), self.font, 0.5,(255,255,255),2)
-        # cv2.putText(cv_image,(self.Visibility(gray3,h, 320)),(w-100,240), self.font, 0.5,(255,255,255),2)
-        # cv2.imshow('VIDEO', cv_image)
-
         status = (self.Visibility(gray, h, w))
         self.pub.publish(status)
-
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             exit(0)
     except CvBridgeError as e:
       print(e)
+
 def main(args):
     RoomLight()
     rospy.init_node('RoomLight', anonymous=True)
@@ -74,7 +69,7 @@ def main(args):
     try:
         rospy.spin()
     except KeyboardInterrupt:
-        print("Shutting down")
+        print("Node RoomLight Detector Shutting Down")
     cv2.destroyAllWindows()
 
 if __name__ == '__main__':

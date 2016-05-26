@@ -12,21 +12,25 @@ import time
 
 roslib.load_manifest('visualsysneeds')
 
-class RoomSilence:
+'''
+This class checks for the existence of any movable object in a specific time interval.
+Used background subtraction. enhanced the ROI by eroding it 10 times
+'''
+class RoomOccupation:
 
   def __init__(self):
     self.counter = 1
     self.firstFrame = None
-    self.pub2 = rospy.Publisher('/opencog/roomoccupation', String, queue_size=30)
+    self.occupation = rospy.Publisher('/opencog/roomoccupation', String, queue_size=30)
     self.bridge = CvBridge()
     self.image_sub = rospy.Subscriber("/usb_cam_node/image_raw",Image, self.callback)
 
-  def maxOfSome(self, statetrend):
-    ref = 0
-    for i in statetrend:
-        if i > ref:
-            ref = i
-    return ref
+  # def maxOfSome(self, statetrend):
+  #   ref = 0
+  #   for i in statetrend:
+  #       if i > ref:
+  #           ref = i
+  #   return ref
 
   def dequeImp(self, count, currentState):
     if count < frameConstant:# In case of 42, around 4s queue accumulation time
@@ -72,7 +76,7 @@ class RoomSilence:
         # Get the state of the room in the past (frameConstant/10) seconds
         # trend = self.roomsilence(self.counter,state)
         self.counter = self.counter + 1
-        self.pub2.publish(str(self.maxOfSome(self.dequeImp(self.counter,activeSub))))
+        self.occupation.publish(str(max(self.dequeImp(self.counter,activeSub))))
         if cv2.waitKey(1) & 0xFF == ord('q'):
             exit(0)
     except CvBridgeError as e:
@@ -94,8 +98,8 @@ def main(args):
     firstFrame = None
     StartTime = time.time()
 
-    RoomSilence()
-    rospy.init_node('RoomOccupation', anonymous=True)
+    RoomOccupation()
+    rospy.init_node('RoomSilence', anonymous=True)
     try:
         rospy.spin()
     except KeyboardInterrupt:

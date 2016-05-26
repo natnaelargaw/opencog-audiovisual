@@ -1,5 +1,3 @@
 <launch>
     <node name="AudioStrength" pkg="audiosysneeds" type="audioStrength.py" output="screen"></node>
-    <node name="roomsilence" pkg="visualsysneeds" type="roomsilence.py" output="screen"></node>
-    <node name="RoomOccupation" pkg="visualsysneeds" type="roomoccupation.py" output="screen"></node>
 </launch>
