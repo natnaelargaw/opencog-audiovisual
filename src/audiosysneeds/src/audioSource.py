@@ -46,10 +46,12 @@ def getFreq(Maindata): # Purpose: Get the current Pitch of the file using fast f
     return FREQUENCY
 
 # Return either 1 or 0 for Sudden Change and Similar decibels  respectively
-def suddenChange(queue):
-    THRESHOLD = 20 # Test and modification of this constant is required
-    return max(queue) - min(queue) > THRESHOLD and 1 or 0
-
+def suddenChanges(dd):
+    THRESHOLD = 25 # Test and modification of this constant is required
+    if max(dd)-min(dd) > THRESHOLD:
+        return 10
+    else:
+        return 0
 
 # Entry point to Publish Three Audio Features
 if __name__ == '__main__':
@@ -61,6 +63,7 @@ if __name__ == '__main__':
         rate = rospy.Rate(10)
 
         loop = 0
+        global loop
         RECORD_SECONDS = 10
         initTime = time.time()
 
@@ -74,8 +77,6 @@ if __name__ == '__main__':
         stream = audio.open(format=FORMAT, channels=CHANNELS,
                     rate=RATE, input=True,
                     frames_per_buffer=CHUNK)
-
-
         while not rospy.is_shutdown():
             data = stream.read(CHUNK)
             frames.append(data)
@@ -83,20 +84,16 @@ if __name__ == '__main__':
             AudioData =convData(data) # can publish it if raw data is needed 22050 Samples/s
             Decibel = get_decibel(AudioData)
 
-
             ''' Used Deque to keep the Audio-Energy Trend in the past few milli secs (1 sec)
                 [-- <mask_size:2 ---> --> --]
             '''
-            event = loop < 2 and d.append(Decibel) or \
+            event = loop < 4 and d.append(Decibel) or \
                     d.popleft();d.append(Decibel);
-            loop =+ 1
-
-            change =  suddenChange(d)
+            loop = loop + 1
             Frequency=getFreq(AudioData)
             feature= str(Decibel)+'_'+str(Frequency)
-
             Vsource.publish(feature)
-            Vchange.publish(str(change))
+            Vchange.publish(str(suddenChanges(d)))
 
             rate.sleep()
     except rospy.ROSInterruptException as e:
