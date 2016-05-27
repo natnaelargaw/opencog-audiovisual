@@ -1,5 +1,6 @@
 ##Simple Auditory and  Visual System Needs for OpenCog
-=======
+------------
+
 ##Introduction
 ------------
   This package is built with the intention of addressing the following user requirements.
