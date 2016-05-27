@@ -88,6 +88,8 @@ Install them using the following shell script
   TBW
 </br>
 
+##Auto-Test
+  TBW
 ##Reference
 
 ##Employed Techniques and Algorithms
