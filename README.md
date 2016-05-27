@@ -56,7 +56,6 @@ Install them using the following shell script
   TBW
 
 ###Topics 
-</br>
 1. /opencog/decibels
   - message type:
   - Value:
