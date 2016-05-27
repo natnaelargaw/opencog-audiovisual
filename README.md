@@ -20,6 +20,8 @@
 5. Speakers Speed
 </br>
   Answers how fast is the person Talking
+</br>
+
 ###Visual
 ------------
 1. Visibility Checkup
@@ -43,7 +45,8 @@
   `cd && bash git_folder/env_setup.sh`
 </br>
 ##Building
------------- </br>
+------------ 
+</br>
  `cd your_work_space &&  source devel/setup.bash`
 ##Usage
 ------------
@@ -83,7 +86,8 @@
 </br>
 ##Reference
 ------------
-### employed Techniques and Algorithms
+</br>
+##employed Techniques and Algorithms
 ------------
 - [Root Mean Square (RMS)](http://www.gaussianwaves.com/2015/07/significance-of-rms-root-mean-square-value/)
 - [Frequency Detection] (https://gist.github.com/endolith/255291) 
