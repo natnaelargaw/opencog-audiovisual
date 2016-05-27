@@ -41,9 +41,11 @@
  - Audio Package   - PyAudiov0.2.9
  - Vison Package   - Opencv v2.4.13
 </br> 
-**Install them using the following shell script**</br> 
+Install them using the following shell script
+</br> 
   `cd && bash git_folder/env_setup.sh`
 </br>
+
 ##Building
 ------------ 
 </br>
