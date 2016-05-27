@@ -2,32 +2,31 @@
 =======
 ##Introduction
 ------------
-**This package is built with the intention of addressing the following user requirements**
+This package is built with the intention of addressing the following user requirements.
 ###Audio
 ------------
 1. Sudden Change Detection
 
-To make the robot detect significant changes -audio. e.g some one yelling at the robot  all of the sudden.__
+* To make the robot detect significant changes -audio. e.g some one yelling at the robot  all of the sudden.
 2. Sound Classification
 
-Classifying each chunk of sound as quite, normal conversation, shouted conversation, very loud sound like gunshot.__
+* Classifying each chunk of sound as quite, normal conversation, shouted conversation, very loud sound like gunshot.
 3. Sex Perception
 
-Detecting speaker's Gender based on thier audio utterance.__
+* Detecting speaker's Gender based on thier audio utterance.
 4. Speakers Counting
 
-Detecting the number of speakers/talking folks from real-time gathered audio data.__
+* Detecting the number of speakers/talking folks from real-time gathered audio data.
 5. Speakers Speed
-
-Answers how fast is the person Talking__
+* Answers how fast is the person Talking
 ###Visual
 ------------
-**1. Visibility Checkup**
-Check the amount of light in a given room. e.g In the case of dark room, informing the system about the situation and interacting w/ the user in based on the context (like i can't see you, some one is blocking me, bla bla).__
-**2. Room Silence**
-Detect how placid/chaotic the room is.__
-**3. Room Occupation**
-To answer questions such as any available subject in the room lately? How many?__
+1. Visibility Checkup
+* Check the amount of light in a given room. e.g In the case of dark room, informing the system about the situation and interacting w/ the user in based on the context (like i can't see you, some one is blocking me, bla bla).
+2. Room Silence
+* Detect how placid/chaotic the room is.
+3. Room Occupation
+* To answer questions such as any available subject in the room lately? How many?
 
 ##Requirements and Setup
 ------------
@@ -35,39 +34,40 @@ To answer questions such as any available subject in the room lately? How many?_
 - Dev. Language  - Python v2.7/rospy
 - Audio Package  - PyAudiov0.2.9
 - Vison Package   - Opencv v2.4.13
+</br> 
 **Install them using the following shell script**
 `cd && bash git_folder/env_setup.sh`
 ##Building
 ------------
-`cd your_work_space &&  source devel/setup.bash`
+- `cd your_work_space &&  source devel/setup.bash`
 ##Usage
 ------------
 ###Topics 
 ------------
 1. /opencog/decibels
-* message type:
-* Value:
+- message type:
+- Value:
 2. /opencog/suddenchange
-* message type: 
-* Value:
+- message type: 
+- Value:
 3. /opencog/roomlight
-* message type:
-* Value:
+- message type:
+- Value:
 
 4. /opencog/roomoccupation
-* message type:
-* Value:
+- message type:
+- Value:
 5. /opencog/roomsilence
-* message type:
-* Value:
+- message type:
+- Value:
 
 6. /opencog/sex
-* message type:
-* Value:
+- message type:
+- Value:
 
 7. /opencog/speakersNo
-* message type:
-* Value:
+- message type:
+- Value:
 
 ##Troubleshooting
 ------------
