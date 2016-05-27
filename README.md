@@ -77,17 +77,20 @@ Install them using the following shell script
 7. /opencog/speakersNo
   - message type:
   - Value:
+
 ##Troubleshooting
 ------------
-  - TBW
-</br>
+  TBW
+
 ##FAQ
 ------------
-  - TBW
+  TBW
 </br>
+
 ##Reference
 ------------
 </br>
+
 ##employed Techniques and Algorithms
 ------------
 - [Root Mean Square (RMS)](http://www.gaussianwaves.com/2015/07/significance-of-rms-root-mean-square-value/)
