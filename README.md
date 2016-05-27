@@ -6,27 +6,26 @@ This package is built with the intention of addressing the following user requir
 ###Audio
 ------------
 1. Sudden Change Detection
-
-* To make the robot detect significant changes -audio. e.g some one yelling at the robot  all of the sudden.
+  * To make the robot detect significant changes -audio. e.g some one yelling at the robot  all of the sudden.
 2. Sound Classification
 
-* Classifying each chunk of sound as quite, normal conversation, shouted conversation, very loud sound like gunshot.
+  * Classifying each chunk of sound as quite, normal conversation, shouted conversation, very loud sound like gunshot.
 3. Sex Perception
 
-* Detecting speaker's Gender based on thier audio utterance.
+  * Detecting speaker's Gender based on thier audio utterance.
 4. Speakers Counting
 
-* Detecting the number of speakers/talking folks from real-time gathered audio data.
+  * Detecting the number of speakers/talking folks from real-time gathered audio data.
 5. Speakers Speed
-* Answers how fast is the person Talking
+  * Answers how fast is the person Talking
 ###Visual
 ------------
 1. Visibility Checkup
-* Check the amount of light in a given room. e.g In the case of dark room, informing the system about the situation and interacting w/ the user in based on the context (like i can't see you, some one is blocking me, bla bla).
+  * Check the amount of light in a given room. e.g In the case of dark room, informing the system about the situation and interacting w/ the user in based on the context (like i can't see you, some one is blocking me, bla bla).
 2. Room Silence
-* Detect how placid/chaotic the room is.
+  * Detect how placid/chaotic the room is.
 3. Room Occupation
-* To answer questions such as any available subject in the room lately? How many?
+  * To answer questions such as any available subject in the room lately? How many?
 
 ##Requirements and Setup
 ------------
@@ -35,18 +34,21 @@ This package is built with the intention of addressing the following user requir
 - Audio Package  - PyAudiov0.2.9
 - Vison Package   - Opencv v2.4.13
 </br> 
-**Install them using the following shell script**
-`cd && bash git_folder/env_setup.sh`
+**Install them using the following shell script**</br> 
+  `cd && bash git_folder/env_setup.sh`
 ##Building
-------------
-- `cd your_work_space &&  source devel/setup.bash`
+------------ </br>
+ `cd your_work_space &&  source devel/setup.bash`
 ##Usage
 ------------
+</br>
+
 ###Topics 
-------------
+------------ 
+</br>
 1. /opencog/decibels
-- message type:
-- Value:
+  - message type:
+  - Value:
 2. /opencog/suddenchange
 - message type: 
 - Value:
