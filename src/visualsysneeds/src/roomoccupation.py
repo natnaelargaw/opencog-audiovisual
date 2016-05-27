@@ -25,13 +25,6 @@ class RoomOccupation:
     self.bridge = CvBridge()
     self.image_sub = rospy.Subscriber("/usb_cam_node/image_raw",Image, self.callback)
 
-  # def maxOfSome(self, statetrend):
-  #   ref = 0
-  #   for i in statetrend:
-  #       if i > ref:
-  #           ref = i
-  #   return ref
-
   def dequeImp(self, count, currentState):
     if count < frameConstant:# In case of 42, around 4s queue accumulation time
         d.append(currentState)
@@ -55,8 +48,9 @@ class RoomOccupation:
         # Subtracting the current frame from the reference Frame and converting it to Binary img based on the threshold
         frameDelta = cv2.absdiff(self.firstFrame, gray)
         thresh = cv2.threshold(frameDelta, 25, 255, cv2.THRESH_BINARY)[1]
+
         #Dilating the Image to fill merge tiny white areas.Also one can use erode to discover only large objects/moves.
-        thresh = cv2.dilate(thresh, None, iterations=10)
+        thresh = cv2.dilate(thresh, None, iterations=25)
         # find contours w. greater area;> cntArea
         (cnts, _) = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)# discard/add the prefix _, before cnts, if it raise error
         activeSub=0 # number of moving objects
@@ -77,11 +71,12 @@ class RoomOccupation:
         # trend = self.roomsilence(self.counter,state)
         self.counter = self.counter + 1
         self.occupation.publish(str(max(self.dequeImp(self.counter,activeSub))))
+
+        cv2.imshow("View", thresh)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             exit(0)
     except CvBridgeError as e:
         print(e)
-
 
 
 def main(args):
@@ -91,7 +86,7 @@ def main(args):
     global pre
     global firstFrame
     global cntArea
-    cntArea=15000
+    cntArea=10000
     d= d= deque()
     frameConstant = 42
     pre=0

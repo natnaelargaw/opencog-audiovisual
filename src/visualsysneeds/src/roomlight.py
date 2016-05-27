@@ -11,9 +11,8 @@ import cv2
 
 roslib.load_manifest('visualsysneeds')
 
-
 '''
-This Class is contains the states and behaviours required to get the amount of light in a office/room.
+This Class contains the states and behaviours required to get the amount of light in an office/room.
  '''
 class RoomLight:
 
