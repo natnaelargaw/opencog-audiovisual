@@ -5,19 +5,19 @@
 **This package is built with the intention of addressing the following user requirements**
 ###Audio
 ------------
-**1. Sudden Change Detection**
+1. Sudden Change Detection
 ------------------------
 To make the robot detect significant changes -audio. e.g some one yelling at the robot  all of the sudden.
-**2. Sound Classification**
+2. Sound Classification
 ------------------------
 Classifying each chunk of sound as quite, normal conversation, shouted conversation, very loud sound like gunshot.
-**3. Sex Perception**
+3. Sex Perception
 ------------------------
 Detecting speaker's Gender based on thier audio utterance.
-**4. Speakers Counting**
+4. Speakers Counting
 ------------------------
 Detecting the number of speakers/talking folks from real-time gathered audio data.
-**5. Speakers Speed**
+5. Speakers Speed
 ------------------------
 Answers how fast is the person Talking
 ###Visual
