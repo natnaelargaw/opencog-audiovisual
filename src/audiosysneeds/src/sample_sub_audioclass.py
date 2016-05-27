@@ -15,15 +15,13 @@ class AudioStrength:
   def __init__(self):
     self.loop = 0
     self.audoSub = rospy.Subscriber("/opencog/AudioFeature", String, self.GetAudioClass)
-
+ #based on my speaker performance
   def AudioEnergy(self, value):
     if value < 35:
-        return 'Quite: Whisper'
+        return 'Quite Whisper'
+    elif value < 65:
+        return 'Normal Conversation'
     elif value < 75:
-        return 'Normal Conversation and slow Music'
-    elif value < 90:
-        return 'Loud: Office Noise'
-    elif value < 110:
         return 'Loud: Shouted Conversation'
     else:
         return 'Loud: Critical'
@@ -35,7 +33,7 @@ class AudioStrength:
         features = data.split("data:")[1].split("_")
         Decibel=  float(features[0])
         Frequency =float(features[1])
-        if self.loop <=5:
+        if self.loop <=2:
             d.append(Decibel)
             self.loop += 1
         else:
