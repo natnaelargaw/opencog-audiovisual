@@ -7,27 +7,27 @@
 ------------
 1. Sudden Change Detection
 
-To make the robot detect significant changes -audio. e.g some one yelling at the robot  all of the sudden.
+To make the robot detect significant changes -audio. e.g some one yelling at the robot  all of the sudden.__
 2. Sound Classification
 
-Classifying each chunk of sound as quite, normal conversation, shouted conversation, very loud sound like gunshot.
+Classifying each chunk of sound as quite, normal conversation, shouted conversation, very loud sound like gunshot.__
 3. Sex Perception
 
-Detecting speaker's Gender based on thier audio utterance.
+Detecting speaker's Gender based on thier audio utterance.__
 4. Speakers Counting
 
-Detecting the number of speakers/talking folks from real-time gathered audio data.
+Detecting the number of speakers/talking folks from real-time gathered audio data.__
 5. Speakers Speed
 
-Answers how fast is the person Talking
+Answers how fast is the person Talking__
 ###Visual
 ------------
 **1. Visibility Checkup**
-Check the amount of light in a given room. e.g In the case of dark room, informing the system about the situation and interacting w/ the user in based on the context (like i can't see you, some one is blocking me, bla bla).
+Check the amount of light in a given room. e.g In the case of dark room, informing the system about the situation and interacting w/ the user in based on the context (like i can't see you, some one is blocking me, bla bla).__
 **2. Room Silence**
-Detect how placid/chaotic the room is.
+Detect how placid/chaotic the room is.__
 **3. Room Occupation**
-To answer questions such as any available subject in the room lately? How many?
+To answer questions such as any available subject in the room lately? How many?__
 
 ##Requirements and Setup
 ------------
