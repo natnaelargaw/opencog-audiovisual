@@ -88,8 +88,6 @@ Install them using the following shell script
 </br>
 
 ##Reference
-------------
-</br>
 
 ##Employed Techniques and Algorithms
 ------------
