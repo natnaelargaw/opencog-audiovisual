@@ -50,12 +50,12 @@ Install them using the following shell script
 ------------ 
 </br>
  `cd your_work_space &&  source devel/setup.bash`
+
 ##Usage
 ------------
 </br>
 
 ###Topics 
------------- 
 </br>
 1. /opencog/decibels
   - message type:
