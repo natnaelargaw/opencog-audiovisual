@@ -91,7 +91,7 @@ Install them using the following shell script
 ------------
 </br>
 
-##employed Techniques and Algorithms
+##Employed Techniques and Algorithms
 ------------
 - [Root Mean Square (RMS)](http://www.gaussianwaves.com/2015/07/significance-of-rms-root-mean-square-value/)
 - [Frequency Detection] (https://gist.github.com/endolith/255291) 
@@ -99,16 +99,18 @@ Install them using the following shell script
 - [Background Subtraction](http://docs.opencv.org/2.4/doc/tutorials/imgproc/threshold/threshold.html)
 - [Image Morphology] (https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjv3bTawvnMAhWDxRQKHQM2B18QFgggMAA&url=http%3A%2F%2Fwww.mathworks.com%2Fhelp%2Fimages%2Fmorphological-dilation-and-erosion.html&usg=AFQjCNG6mcuUFffnwnnb4wZrYI-cKarYAg)
 - [Moving Collections] (https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=0ahUKEwjm6uvpwvnMAhXEWxQKHScbBwsQFggnMAE&url=https%3A%2F%2Fdocs.python.org%2F3%2Flibrary%2Fcollections.html&usg=AFQjCNG2mjapHqnnZgJmeiKpa724xaH-wg)
+
 ##Limitations and Feature works
 ------------
+TBW
 
 ###Audio System Needs
 ------------
-The audio related features are tested based on two audio sources. Hence, some code rearrangement shall be done to make it work on the real robot.
+ The audio related features are tested based on two audio sources. Hence, some code rearrangement shall be done to make it work on the real robot.
 
 ###Visual System Needs
 ------------
-The room occupation and silence nodes are based on the size and number of contours on filtered and background subtracted images. The nearer the ROI the higher its impact is. (e.g. man waving his hand near to the front camera). Hence, incorporating depth data of ROI's should be the next task here.
+ The room occupation and silence nodes are based on the size and number of contours on filtered and background subtracted images. The nearer the ROI the higher its impact is. (e.g. man waving his hand near to the front camera). Hence, incorporating depth data of ROI's should be the next task here.
 
 
 
