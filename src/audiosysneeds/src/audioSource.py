@@ -8,6 +8,7 @@ import time
 import numpy as np
 from std_msgs.msg import String
 
+
 '''
    The main purpose of this Node is to publish Input Audio(Numpy array) and some of its features such as Decibel and
    Frequency. It publishes to two major Topics namely /opencog/AudioFeature and /opencog/change. The first one is co-
@@ -59,6 +60,7 @@ if __name__ == '__main__':
     try:
         Vsource = rospy.Publisher('/opencog/AudioFeature', String, queue_size=10)
         Vchange = rospy.Publisher('/opencog/suddenchange', String, queue_size=10)
+        Vraw_data = rospy.Publisher('/opencog/audio_raw_data', String, queue_size=10)
         rospy.init_node('AudioFeature', anonymous=True)
         rate = rospy.Rate(10)
 
@@ -92,9 +94,9 @@ if __name__ == '__main__':
             loop = loop + 1
             Frequency=getFreq(AudioData)
             feature= str(Decibel)+'_'+str(Frequency)
+            Vraw_data.publish(data)
             Vsource.publish(feature)
             Vchange.publish(str(suddenChanges(d)))
-
             rate.sleep()
     except rospy.ROSInterruptException as e:
         print(e)

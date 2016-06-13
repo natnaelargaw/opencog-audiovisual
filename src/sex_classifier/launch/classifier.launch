@@ -1,0 +1,3 @@
+<launch>
+    <node name="Sex_Classifier" pkg="sex_classifier" type="classifier.py" output="screen"></node>
+</launch>
