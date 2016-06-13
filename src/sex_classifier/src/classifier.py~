@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 import rospy
 from std_msgs.msg import String
-from scipy.io import wavfile
 import numpy as np
 import sys
-import matplotlib.pyplot as plt
 import os
 from sklearn.svm import LinearSVC
 from sklearn.externals import joblib

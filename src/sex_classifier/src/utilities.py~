@@ -362,7 +362,7 @@ def feature_extraction(signal, Fs, Win, Step):
 
     numOfTimeSpectralFeatures = 8
     numOfHarmonicFeatures = 0
-    nceps = 13 #the number of mfcc features set to 0 from 13 cuz i don't need them now
+    nceps = 13 
     numOfChromaFeatures = 13
     totalNumOfFeatures = numOfTimeSpectralFeatures + nceps + numOfHarmonicFeatures + numOfChromaFeatures
 #    totalNumOfFeatures = numOfTimeSpectralFeatures + nceps + numOfHarmonicFeatures

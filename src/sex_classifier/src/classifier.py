@@ -36,7 +36,7 @@ class sex_classifier:
 		data = self.convData(data.data)
 		data_no_silence = no_silence(data, self.sample_rate) #remove all silence part from audio
 		features = feature_extraction(data_no_silence, self.sample_rate, 0.05*self.sample_rate, 0.025*self.sample_rate)
-		res = self.svm.predict(features.transpose()).tolist()
+		res = self.svm.predict(features.transpose()).tolist() #transpose cuz sklearn accepts [samples][features] format
 		male_confidence = (float(res.count(0))/len(res)) * 100
 		print 'male' if male_confidence > 50 else 'female'
 		print 'confidence = ' + str(male_confidence) if male_confidence > 50 else str(100 - male_confidence)
