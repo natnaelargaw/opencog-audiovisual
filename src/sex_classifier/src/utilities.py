@@ -1,10 +1,10 @@
 #! /usr/bin/env python
 
 '''
-	contains the utility functions needed for the program
-	The feature extraction codes are taken from audioFeatureExtraction 
-	in pyAudioAnalysis by Theodoros Giannakopoulos
-		https://github.com/tyiannak/pyAudioAnalysis/
+    This file contains the utility functions needed for the program
+    The feature extraction codes are taken from audioFeatureExtraction 
+    in pyAudioAnalysis by Theodoros Giannakopoulos
+        https://github.com/tyiannak/pyAudioAnalysis/
 '''
 
 
@@ -21,63 +21,63 @@ from scipy import linalg as la
 eps = 0.00000001
 
 def in_segment(x, seg):
-	n_segs = len(seg)
-	step = 2 if n_segs == 2 else 2
-	for i in range(0, n_segs, step):
-		if x >= seg[i] and x <= seg[i+1]:
-			return True
-	return False
+    n_segs = len(seg)
+    step = 2 if n_segs == 2 else 2
+    for i in range(0, n_segs, step):
+        if x >= seg[i] and x <= seg[i+1]:
+            return True
+    return False
 
 def no_silence(data, sample_rate, plot=False):
-	dur_smp = 1.0/sample_rate
-	count = 0
-	start = 0
-	end = 0
-	segments = []
-	aud_segments = []
-	s_avg = max(data)*0.05 if max(data) > abs(min(data)) else abs(min(data))*0.05
-	data_no_silence = []
-	data = list(data)
-	
-	for i in range(0, len(data)):
-		if abs(data[i]) < s_avg:
-			if count == 0:
-				start = i
-			count = count + 1
-		else:
-			if (count * dur_smp) > 0.1:
-				segments.append(start)
-				segments.append(i)
-				count = 0
-			else:
-				count = 0
-		if(i+1 == len(data)):
-			segments.append(start)
-			segments.append(i)
+    dur_smp = 1.0/sample_rate
+    count = 0
+    start = 0
+    end = 0
+    segments = []
+    aud_segments = []
+    s_avg = max(data)*0.05 if max(data) > abs(min(data)) else abs(min(data))*0.05
+    data_no_silence = []
+    data = list(data)
+    
+    for i in range(0, len(data)):
+        if abs(data[i]) < s_avg:
+            if count == 0:
+                start = i
+            count = count + 1
+        else:
+            if (count * dur_smp) > 0.1:
+                segments.append(start)
+                segments.append(i)
+                count = 0
+            else:
+                count = 0
+        if(i+1 == len(data)):
+            segments.append(start)
+            segments.append(i)
 
-	if plot:
-		for i in range(0, len(segments)):
-			print segments[i]
-		data2 = []
-		data2.append(1)			
-	
-	data_no_silence = []
-	for i in range(0, len(data)):
-		if not in_segment(i, segments):
-			data_no_silence.append(data[i])
-		if plot:
-			data2.append( 0.5 if in_segment(i, segments) else 0)
+    if plot:
+        for i in range(0, len(segments)):
+            print segments[i]
+        data2 = []
+        data2.append(1)         
+    
+    data_no_silence = []
+    for i in range(0, len(data)):
+        if not in_segment(i, segments):
+            data_no_silence.append(data[i])
+        if plot:
+            data2.append( 0.5 if in_segment(i, segments) else 0)
 
-	if plot:
-		plt.subplot(311)
-		plt.plot(data, 'b')
-		plt.subplot(312)
-		plt.plot(data2, 'g')
-		plt.subplot(313)
-		plt.plot(data_no_silence, 'r')
-		plt.show()
+    if plot:
+        plt.subplot(311)
+        plt.plot(data, 'b')
+        plt.subplot(312)
+        plt.plot(data2, 'g')
+        plt.subplot(313)
+        plt.plot(data_no_silence, 'r')
+        plt.show()
 
-	return data_no_silence
+    return data_no_silence
 
 
 
@@ -349,21 +349,16 @@ def feature_extraction(signal, Fs, Win, Step):
     countFrames = 0
     nFFT = Win / 2
 
-    '''i'm thinking of totally abandoning mfcc features since i think they are not 
-	features different for male and female in particular
-
-	so i'm gonna remove the mfcc calculations altogether
-	'''
 
     [fbank, freqs] = mfccInitFilterBanks(Fs, nFFT)                # compute the triangular filter banks used in the mfcc calculation
-    
-    # idk what chroma features are yet
+
     nChroma, nFreqsPerChroma = stChromaFeaturesInit(nFFT, Fs)
 
     numOfTimeSpectralFeatures = 8
     numOfHarmonicFeatures = 0
     nceps = 13 
-    numOfChromaFeatures = 13
+    ''' REMOVING THE CHROMA FEATURES '''
+    numOfChromaFeatures = 0 #IT USED TO BE 13
     totalNumOfFeatures = numOfTimeSpectralFeatures + nceps + numOfHarmonicFeatures + numOfChromaFeatures
 #    totalNumOfFeatures = numOfTimeSpectralFeatures + nceps + numOfHarmonicFeatures
     stFeatures = np.array([], dtype=np.float64)
@@ -389,7 +384,7 @@ def feature_extraction(signal, Fs, Win, Step):
         curFV[numOfTimeSpectralFeatures:numOfTimeSpectralFeatures+nceps, 0] = stMFCC(X, fbank, nceps).copy()    # MFCCs
 
         chromaNames, chromaF = stChromaFeatures(X, Fs, nChroma, nFreqsPerChroma)
-        curFV[numOfTimeSpectralFeatures + nceps: numOfTimeSpectralFeatures + nceps + numOfChromaFeatures - 1] = chromaF
+        ''' REMOVED '''#curFV[numOfTimeSpectralFeatures + nceps: numOfTimeSpectralFeatures + nceps + numOfChromaFeatures - 1] = chromaF
         curFV[numOfTimeSpectralFeatures + nceps + numOfChromaFeatures - 1] = chromaF.std()
 #        curFV[numOfTimeSpectralFeatures+nceps+numOfChromaFeatures-1] = np.nonzero( chromaF > 2.0 * chromaF.mean() )[0].shape[0]
 #        temp = np.sort(chromaF[:,0])

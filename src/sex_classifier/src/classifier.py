@@ -5,9 +5,9 @@ import numpy as np
 import sys
 import os
 from sklearn.svm import LinearSVC
-from sklearn.externals import joblib
 from utilities import *
 import struct
+import pickle
 
 class sex_classifier:
 
@@ -17,9 +17,9 @@ class sex_classifier:
 		rospy.init_node('Sex_Classifier', anonymous=True)
 		rospy.Subscriber('/opencog/audio_raw_data', String, self.callback) #sub to pcm data
 		rospy.Subscriber('/opencog/AudioFeature', String, self.source_callback)
-		self.svm = LinearSVC()
-		self.svm = joblib.load(os.path.join(
-			os.path.dirname(os.path.realpath(__file__)), 'model/good_model.pkl'))
+		file_name = os.path.join(
+			os.path.dirname(os.path.realpath(__file__)), 'model/pickle_dump.pkl')
+		self.svm = pickle.load(open(file_name, 'r'))
 
 	def convData(self, V):
 	    count = len(V) / 2
@@ -28,7 +28,7 @@ class sex_classifier:
 	    return shorts
 
 	def source_callback(self, data):
-		self.sample_rate = int(str(data).split('_')[1])
+		self.sample_rate = float(str(data).split('_')[1])
 		
 
 	#to do feature extraction on data without silence
@@ -36,6 +36,7 @@ class sex_classifier:
 		data = self.convData(data.data)
 		data_no_silence = no_silence(data, self.sample_rate) #remove all silence part from audio
 		features = feature_extraction(data_no_silence, self.sample_rate, 0.05*self.sample_rate, 0.025*self.sample_rate)
+		print "feature shape = " + str(np.shape(features))
 		res = self.svm.predict(features.transpose()).tolist() #transpose cuz sklearn accepts [samples][features] format
 		male_confidence = (float(res.count(0))/len(res)) * 100
 		print 'male' if male_confidence > 50 else 'female'

@@ -54,6 +54,17 @@ def suddenChanges(dd):
     else:
         return 0
 
+
+#trial of non-blocking audio stream
+def input_audio(in_data, frame_count, time_info, status_flags):
+    #here accept the audio data and publish it
+    print type(in_data)
+    print shape(in_data)
+    print type(frame_count)
+    print "frame count = " + str(frame_count)
+    print "time info = " + str(time_info)
+
+
 # Entry point to Publish Three Audio Features
 if __name__ == '__main__':
     d = deque()
