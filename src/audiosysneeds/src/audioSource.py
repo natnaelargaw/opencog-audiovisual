@@ -6,111 +6,108 @@ import math
 import struct
 import time
 import numpy as np
+import re
+
 from std_msgs.msg import String
+from  audio_common_msgs.msg import AudioData
 
 
 '''
-   The main purpose of this Node is to publish Input Audio(Numpy array) and some of its features such as Decibel and
-   Frequency. It publishes to two major Topics namely /opencog/AudioFeature and /opencog/change. The first one is co-
+   The main purpose of this Node is to publish some audio features such as Decibel and Frequency. 
+   It accepts raw audio data from topic /audio published by audio_capture package.
+   It publishes to two major Topics namely /opencog/AudioFeature and /opencog/change. The first one is co-
    tains Decibel and Frequency of a given chunk as a String with "Decibel_Frequency" format. The second one holds 0 -
    for No Sudden Change Events and 1 for events which have sudden change.Better to change the THRESHOLD value based on
    the performance of speaker on the Robot.
  '''
-# Converts Stream (which is in byte format) to List of +ve and -ve Integers
-def convData(V):
-    count = len(V) / 2
-    format = "%dh" % (count)
-    shorts = struct.unpack(format, V)
-    return shorts
 
-# The Energy of Sound per chunk is calculated
-def get_decibel(block):
-    # get 1 val for each two char(byte)
-    count = len(block) / 2
-    SQUARE=0.0
-    for i in block:
-        SQUARE = SQUARE + math.pow(abs(i), 2)
-    p = 20* math.log10(math.sqrt((SQUARE / count)))
-    return p
-# Get the frequency of the current Chunk
-def getFreq(Maindata): # Purpose: Get the current Pitch of the file using fast fourier transform
-    fftData = abs(np.fft.rfft(Maindata)) ** 2  # find the maximum
-    which = fftData[1:].argmax() + 1
-    # use quadratic interpolation around the max
-    if which != len(fftData) - 1:
-        y0, y1, y2 = np.log(fftData[which - 1:which + 2:])
-        x1 = (y2 - y0) * .5 / (2 * y1 - y2 - y0)
-        # find the frequency and output it
-        FREQUENCY = (which + x1) * RATE / CHUNK
-    else:
-        FREQUENCY = which * RATE / CHUNK
-    return FREQUENCY
+class AudioSysNeeds:
 
-# Return either 1 or 0 for Sudden Change and Similar decibels  respectively
-def suddenChanges(dd):
-    THRESHOLD = 25 # Test and modification of this constant is required
-    if max(dd)-min(dd) > THRESHOLD:
-        return 10
-    else:
-        return 0
+    def __init__(self):
+        rospy.init_node('AudioFeature', anonymous=True)
+        self.Vsource = rospy.Publisher('/opencog/AudioFeature', String, queue_size=10)
+        self.Vchange = rospy.Publisher('/opencog/suddenchange', String, queue_size=10)
+        rospy.Subscriber('/audio', AudioData, self.audio_callback)
+        self.d = deque()
+        self.loop = 0
+        self.RATE = 16000
+        self.CHANNELS = 1
+        
+
+    # Converts Stream (which is in byte format) to List of +ve and -ve Integers
+    def convData(self, V):
+        count = len(V) / 2
+        format = "%dh" % (count)
+        shorts = struct.unpack(format, V)
+        return shorts
+
+    # The Energy of Sound per chunk is calculated
+    def get_decibel(self, block):
+        # get 1 val for each two char(byte)
+        count = len(block) / 2
+        SQUARE=0.0
+        for i in block:
+            SQUARE = SQUARE + math.pow(abs(i), 2)
+        p = 20* math.log10(math.sqrt((SQUARE / count)))
+        return p
+    # Get the frequency of the current Chunk
+    def getFreq(self, Maindata): # Purpose: Get the current Pitch of the file using fast fourier transform
+        fftData = abs(np.fft.rfft(Maindata)) ** 2  # find the maximum
+        which = fftData[1:].argmax() + 1
+        # use quadratic interpolation around the max
+        if which != len(fftData) - 1:
+            y0, y1, y2 = np.log(fftData[which - 1:which + 2:])
+            x1 = (y2 - y0) * .5 / (2 * y1 - y2 - y0)
+            # find the frequency and output it
+            FREQUENCY = (which + x1) * self.RATE / (len(Maindata) / self.CHANNELS)
+        else:
+            FREQUENCY = which * self.RATE / (len(Maindata) / self.CHANNELS)
+        return FREQUENCY
+
+    # Return either 1 or 0 for Sudden Change and Similar decibels  respectively
+    def suddenChanges(self, dd):
+        THRESHOLD = 25 # Test and modification of this constant is required
+        if max(dd)-min(dd) > THRESHOLD:
+            return 10
+        else:
+            return 0
 
 
-#trial of non-blocking audio stream
-def input_audio(in_data, frame_count, time_info, status_flags):
-    #here accept the audio data and publish it
-    print type(in_data)
-    print shape(in_data)
-    print type(frame_count)
-    print "frame count = " + str(frame_count)
-    print "time info = " + str(time_info)
+    def audio_callback(self, data):
+        #print "recieved callback.................."
+        
+        AudioRawData = re.findall(r'\d+', data.__str__())
+        AudioRawData = [int(i) for i in AudioRawData]
+        #for i in range(len(AudioRawData)):
+            #AudioRawData[i] = int(AudioRawData[i])
+        #print type(AudioRawData[0])
+        print len(AudioRawData)
+        #AudioRawData = self.convData(dr) # can publish it if raw data is needed 22050 Samples/s
+        Decibel = self.get_decibel(AudioRawData)
 
+        ''' Used Deque to keep the Audio-Energy Trend in the past few milli secs (1 sec)
+            [-- <mask_size:2 ---> --> --]
+        '''
+        event = self.loop < 4 and self.d.append(Decibel) or \
+                self.d.popleft(); self.d.append(Decibel);
+        self.loop = self.loop + 1
+        #print self.loop
+        Frequency = self.getFreq(AudioRawData)
+        feature= str(Decibel)+'_'+str(Frequency)
+        self.Vsource.publish(feature)
+        self.Vchange.publish(str(self.suddenChanges(self.d)))
+        
 
 # Entry point to Publish Three Audio Features
 if __name__ == '__main__':
-    d = deque()
+    
     try:
-        Vsource = rospy.Publisher('/opencog/AudioFeature', String, queue_size=10)
-        Vchange = rospy.Publisher('/opencog/suddenchange', String, queue_size=10)
-        Vraw_data = rospy.Publisher('/opencog/audio_raw_data', String, queue_size=10)
-        rospy.init_node('AudioFeature', anonymous=True)
-        rate = rospy.Rate(10)
-
-        loop = 0
-        global loop
-        RECORD_SECONDS = 10
-        initTime = time.time()
-
-        frames = []
-        WAVE_OUTPUT_FILENAME = str(time.time()).__add__('.wav')
-        audio = pyaudio.PyAudio()
-        FORMAT = pyaudio.paInt16
-        CHANNELS = 2
-        RATE = 44100
-        CHUNK = 22050  # 1024
-        stream = audio.open(format=FORMAT, channels=CHANNELS,
-                    rate=RATE, input=True,
-                    frames_per_buffer=CHUNK)
-        while not rospy.is_shutdown():
-            data = stream.read(CHUNK)
-            frames.append(data)
-            AudioData = []
-            AudioData =convData(data) # can publish it if raw data is needed 22050 Samples/s
-            Decibel = get_decibel(AudioData)
-
-            ''' Used Deque to keep the Audio-Energy Trend in the past few milli secs (1 sec)
-                [-- <mask_size:2 ---> --> --]
-            '''
-            event = loop < 4 and d.append(Decibel) or \
-                    d.popleft();d.append(Decibel);
-            loop = loop + 1
-            Frequency=getFreq(AudioData)
-            feature= str(Decibel)+'_'+str(Frequency)
-            Vraw_data.publish(data)
-            Vsource.publish(feature)
-            Vchange.publish(str(suddenChanges(d)))
-            rate.sleep()
+        AudioSysNeeds()
+        rospy.spin()
     except rospy.ROSInterruptException as e:
         print(e)
+    except rospy.ROS.InitException as i:
+        print (i)
 
 
 

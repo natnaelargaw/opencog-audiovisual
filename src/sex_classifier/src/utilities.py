@@ -43,7 +43,7 @@ def no_silence(data, sample_rate, plot=False):
         if abs(data[i]) < s_avg:
             if count == 0:
                 start = i
-            count = count + 1
+            count += 1
         else:
             if (count * dur_smp) > 0.1:
                 segments.append(start)
@@ -358,7 +358,7 @@ def feature_extraction(signal, Fs, Win, Step):
     numOfHarmonicFeatures = 0
     nceps = 13 
     ''' REMOVING THE CHROMA FEATURES '''
-    numOfChromaFeatures = 0 #IT USED TO BE 13
+    numOfChromaFeatures = 13
     totalNumOfFeatures = numOfTimeSpectralFeatures + nceps + numOfHarmonicFeatures + numOfChromaFeatures
 #    totalNumOfFeatures = numOfTimeSpectralFeatures + nceps + numOfHarmonicFeatures
     stFeatures = np.array([], dtype=np.float64)
@@ -384,7 +384,7 @@ def feature_extraction(signal, Fs, Win, Step):
         curFV[numOfTimeSpectralFeatures:numOfTimeSpectralFeatures+nceps, 0] = stMFCC(X, fbank, nceps).copy()    # MFCCs
 
         chromaNames, chromaF = stChromaFeatures(X, Fs, nChroma, nFreqsPerChroma)
-        ''' REMOVED '''#curFV[numOfTimeSpectralFeatures + nceps: numOfTimeSpectralFeatures + nceps + numOfChromaFeatures - 1] = chromaF
+        curFV[numOfTimeSpectralFeatures + nceps: numOfTimeSpectralFeatures + nceps + numOfChromaFeatures - 1] = chromaF
         curFV[numOfTimeSpectralFeatures + nceps + numOfChromaFeatures - 1] = chromaF.std()
 #        curFV[numOfTimeSpectralFeatures+nceps+numOfChromaFeatures-1] = np.nonzero( chromaF > 2.0 * chromaF.mean() )[0].shape[0]
 #        temp = np.sort(chromaF[:,0])

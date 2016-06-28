@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "audio_pub")
+set(audio_pub_MAINTAINER "icog2 <icog2@todo.todo>")
+set(audio_pub_DEPRECATED "")
+set(audio_pub_VERSION "0.0.0")
+set(audio_pub_BUILD_DEPENDS "roscpp")
+set(audio_pub_RUN_DEPENDS "roscpp")
+set(audio_pub_BUILDTOOL_DEPENDS "catkin")

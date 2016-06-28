@@ -1,51 +1,24 @@
 #!/usr/bin/env python
-import rospy
-from std_msgs.msg import String
-import numpy as np
-import sys
-import os
-from sklearn.svm import LinearSVC
+import numpy as np 
+from scipy.io import wavfile
 from utilities import *
-import struct
+import sys
 import pickle
-
-class sex_classifier:
-
-	sample_rate = 44100
-
-	def __init__(self):
-		rospy.init_node('Sex_Classifier', anonymous=True)
-		rospy.Subscriber('/opencog/audio_raw_data', String, self.callback) #sub to pcm data
-		rospy.Subscriber('/opencog/AudioFeature', String, self.source_callback)
-		file_name = os.path.join(
-			os.path.dirname(os.path.realpath(__file__)), 'model/pickle_dump.pkl')
-		self.svm = pickle.load(open(file_name, 'r'))
-
-	def convData(self, V):
-	    count = len(V) / 2
-	    format = "%dh" % (count)
-	    shorts = struct.unpack(format, V)
-	    return shorts
-
-	def source_callback(self, data):
-		self.sample_rate = float(str(data).split('_')[1])
-		
-
-	#to do feature extraction on data without silence
-	def callback(self, data):
-		data = self.convData(data.data)
-		data_no_silence = no_silence(data, self.sample_rate) #remove all silence part from audio
-		features = feature_extraction(data_no_silence, self.sample_rate, 0.05*self.sample_rate, 0.025*self.sample_rate)
-		print "feature shape = " + str(np.shape(features))
-		res = self.svm.predict(features.transpose()).tolist() #transpose cuz sklearn accepts [samples][features] format
-		male_confidence = (float(res.count(0))/len(res)) * 100
-		print 'male' if male_confidence > 50 else 'female'
-		print 'confidence = ' + str(male_confidence) if male_confidence > 50 else str(100 - male_confidence)
+import matplotlib.pyplot as plt
 
 
-if __name__ == '__main__':
-	try:
-		sex_classifier()
-		rospy.spin()
-	except rospy.ROSInterruptException as e:
-		print str(e)
+file_name = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'model/pickle_dump.pkl')
+svm = pickle.load(open(file_name, 'r'))
+
+smp, data = wavfile.read(sys.argv[1])
+print "data length = " + str(len(data))
+data_no_silence = no_silence(data, smp, plot=True) #remove all silence part from audio
+print "length of no silence = " + str(len(data_no_silence))
+features = feature_extraction(data_no_silence, smp, 0.05*smp, 0.025*smp)
+print "feature shape = " + str(np.shape(features))
+features = features.transpose()
+res = svm.predict(features) #transpose cuz sklearn accepts [samples][features] format
+res = res.tolist()
+male_confidence = (float(res.count(1))/len(res)) * 100
+print 'male' if male_confidence > 50 else 'female'
+print 'confidence = ' + str(male_confidence) if male_confidence > 50 else str(100 - male_confidence)

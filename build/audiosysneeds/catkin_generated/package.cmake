@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "audiosysneeds")
+set(audiosysneeds_MAINTAINER "natnael <natnael@todo.todo>")
+set(audiosysneeds_DEPRECATED "")
+set(audiosysneeds_VERSION "0.0.0")
+set(audiosysneeds_BUILD_DEPENDS "cv_bridge" "image_transport" "roscpp" "rospy")
+set(audiosysneeds_RUN_DEPENDS "cv_bridge" "image_transport" "roscpp" "rospy")
+set(audiosysneeds_BUILDTOOL_DEPENDS "catkin")
