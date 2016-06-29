@@ -1,8 +1,0 @@
-prefix=/home/icog2/Desktop/opencog-audiovisual/install
-
-Name: visualsysneeds
-Description: Description of visualsysneeds
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/icog2/Desktop/opencog-audiovisual/install/lib 
-Requires: 

@@ -1,8 +1,0 @@
-prefix=/home/icog2/Desktop/opencog-audiovisual/devel
-
-Name: audio_pub
-Description: Description of audio_pub
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/icog2/Desktop/opencog-audiovisual/devel/lib 
-Requires: 
