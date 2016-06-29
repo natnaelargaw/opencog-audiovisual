@@ -9,7 +9,8 @@ import numpy as np
 import re
 
 from std_msgs.msg import String
-from  audio_common_msgs.msg import AudioData
+from rospy_tutorials.msg import Floats
+from rospy.numpy_msg import numpy_msg
 
 
 '''
@@ -27,10 +28,10 @@ class AudioSysNeeds:
         rospy.init_node('AudioFeature', anonymous=True)
         self.Vsource = rospy.Publisher('/opencog/AudioFeature', String, queue_size=10)
         self.Vchange = rospy.Publisher('/opencog/suddenchange', String, queue_size=10)
-        rospy.Subscriber('/audio', AudioData, self.audio_callback)
+        rospy.Subscriber('/opencog/audio_raw_data', numpy_msg(Floats), self.audio_callback)
         self.d = deque()
         self.loop = 0
-        self.RATE = 16000
+        self.RATE = 44100
         self.CHANNELS = 1
         
 
@@ -74,15 +75,9 @@ class AudioSysNeeds:
 
 
     def audio_callback(self, data):
-        #print "recieved callback.................."
-        
-        AudioRawData = re.findall(r'\d+', data.__str__())
-        AudioRawData = [int(i) for i in AudioRawData]
-        #for i in range(len(AudioRawData)):
-            #AudioRawData[i] = int(AudioRawData[i])
-        #print type(AudioRawData[0])
+        AudioRawData = np.array(data.data, dtype=np.int16)
         print len(AudioRawData)
-        #AudioRawData = self.convData(dr) # can publish it if raw data is needed 22050 Samples/s
+        
         Decibel = self.get_decibel(AudioRawData)
 
         ''' Used Deque to keep the Audio-Energy Trend in the past few milli secs (1 sec)
@@ -91,7 +86,7 @@ class AudioSysNeeds:
         event = self.loop < 4 and self.d.append(Decibel) or \
                 self.d.popleft(); self.d.append(Decibel);
         self.loop = self.loop + 1
-        #print self.loop
+        
         Frequency = self.getFreq(AudioRawData)
         feature= str(Decibel)+'_'+str(Frequency)
         self.Vsource.publish(feature)
@@ -106,7 +101,7 @@ if __name__ == '__main__':
         rospy.spin()
     except rospy.ROSInterruptException as e:
         print(e)
-    except rospy.ROS.InitException as i:
+    except rospy.ROSInitException as i:
         print (i)
 
 

@@ -13,7 +13,7 @@ WINSIZE = 10000
 SAMPLE_RATE = 44100
 counter = 0
 
-vad_pub = rospy.Publisher('/voice_activity', numpy_msg(Floats), queue_size=10)
+vad_pub = rospy.Publisher('/opencog/voice_activity', numpy_msg(Floats), queue_size=10)
 
 #audio = pyaudio.PyAudio()
 #stream = audio.open(format=pyaudio.paInt16, channels=1, rate=16000, output=True)
@@ -62,7 +62,7 @@ def vad_callback(data):
 if __name__=="__main__":
     try:
     	rospy.init_node('VAD', anonymous=True)
-    	rospy.Subscriber('/audio_raw_data', numpy_msg(Floats), vad_callback)
+    	rospy.Subscriber('/opencog/audio_raw_data', numpy_msg(Floats), vad_callback)
     	rospy.spin()
     except ROSInitException as i:
     	print str(i)

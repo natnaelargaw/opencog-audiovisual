@@ -17,8 +17,8 @@ class sex_classifier:
 		self.PLAYBACK = False
 
 		rospy.init_node('Sex_Classifier', anonymous=True)
-		rospy.Subscriber('/voice_activity', numpy_msg(Floats), self.callback) #sub to pcm data from VAD
-		self.sex_publisher = rospy.Publisher('/speaker_sex', String, queue_size=1)
+		rospy.Subscriber('/opencog/voice_activity', numpy_msg(Floats), self.callback) #sub to pcm data from VAD
+		self.sex_publisher = rospy.Publisher('/opencog/speaker_sex', String, queue_size=1)
 		file_name = os.path.join(
 			os.path.dirname(os.path.realpath(__file__)), 'model/pickle_dump.pkl')
 		self.svm = pickle.load(open(file_name, 'r'))

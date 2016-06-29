@@ -1,5 +1,6 @@
 <launch>
-	<node pkg="audiosysneeds" name="audio_publisher" type="recorder.py" />
+	<node pkg="audio_recorder" name="audio_publisher" type="recorder.py" />
+	<node pkg="audiosysneeds" name="audioSource" type="audioSource.py" />
 	<node pkg="vad" name="voice_activity_detector" type="vad_node.py" />
 	<node pkg="sex_classifier" name="sex_classifier" type="sex_classifier.py" />
 </launch>

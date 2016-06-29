@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "launcher")
-set(launcher_MAINTAINER "icog2 <icog2@todo.todo>")
-set(launcher_DEPRECATED "")
-set(launcher_VERSION "0.0.0")
-set(launcher_BUILD_DEPENDS )
-set(launcher_RUN_DEPENDS )
-set(launcher_BUILDTOOL_DEPENDS "catkin")
