@@ -1,0 +1,2 @@
+audio_pub:audiosysneeds:launcher:sex_classifier:visualsysneeds
+-DCATKIN_DEVEL_PREFIX=/home/icog2/Desktop/opencog-audiovisual/devel -DCMAKE_INSTALL_PREFIX=/home/icog2/Desktop/opencog-audiovisual/install -G Unix Makefiles

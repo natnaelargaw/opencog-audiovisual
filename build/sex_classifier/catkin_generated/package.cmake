@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "sex_classifier")
+set(sex_classifier_MAINTAINER "ubuntu <ubuntu@todo.todo>")
+set(sex_classifier_DEPRECATED "")
+set(sex_classifier_VERSION "0.0.0")
+set(sex_classifier_BUILD_DEPENDS "rospy" "std_msgs")
+set(sex_classifier_RUN_DEPENDS "rospy" "std_msgs")
+set(sex_classifier_BUILDTOOL_DEPENDS "catkin")
