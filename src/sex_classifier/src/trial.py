@@ -18,7 +18,7 @@ stream = audio.open(format=pyaudio.paInt16, channels=1,
 f = wave.open('trial_output.wav', 'wb')
 f.setnchannels(1)
 f.setsampwidth(2)
-f.setframerate(44100)
+f.setframerate(16000)
 data_write = []
 
 def convData(V):
@@ -54,6 +54,8 @@ def callback(data):
 	print d
 	stream.write(np.asarray(d))
 	
+	
+	'''
 	if(len(data_write) > 88200):
 		plt.plot(data_write)
 		plt.show()
@@ -62,13 +64,13 @@ def callback(data):
 		data_write = []
 	else:
 		data_write += list(d)
-	
+	'''
 
 
 rospy.init_node('trial_node', anonymous=True)
 #rospy.Subscriber('/audio_pub', Int16MultiArray, callback)
 #rospy.Subscriber('/audio', AudioData, callback)
-rospy.Subscriber('/audio_raw_data',numpy_msg(Floats), callback)
+rospy.Subscriber('/opencog/audio_raw_data',numpy_msg(Floats), callback)
 
 try:
 	rospy.spin()

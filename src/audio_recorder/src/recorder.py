@@ -16,8 +16,7 @@ class Recording():
 	CHUNK = 1
 	FORMAT = pyaudio.paInt16
 	CHANNELS = 1
-	#RATE = 44100
-	FS = 44100
+	FS = 16000
 	RECORD_SECONDS = 2
 	NODE_NAME = 'recorder'
 	def __init__(self):

@@ -3,7 +3,7 @@
 import numpy as np
 import scipy as sp
 
-WINSIZE=4000
+#WINSIZE=4000
 
 
 class LTSD():

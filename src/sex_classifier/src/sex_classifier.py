@@ -14,8 +14,8 @@ import pyaudio
 
 class sex_classifier:
 	def __init__(self):
-		self.PLAYBACK = False
-
+		self.PLAYBACK = True
+		self.sample_rate = 16000
 		rospy.init_node('Sex_Classifier', anonymous=True)
 		rospy.Subscriber('/opencog/voice_activity', numpy_msg(Floats), self.callback) #sub to pcm data from VAD
 		self.sex_publisher = rospy.Publisher('/opencog/speaker_sex', String, queue_size=1)
@@ -25,8 +25,8 @@ class sex_classifier:
 		if self.PLAYBACK:
 			self.audio = pyaudio.PyAudio()
 			self.stream = self.audio.open(format=pyaudio.paInt16, channels=1, 
-						rate=16000, output=True, frames_per_buffer=1)
-		self.sample_rate = 16000
+						rate=self.sample_rate, output=True, frames_per_buffer=1)
+		
 		
 		self.MALE = 1
 
@@ -39,21 +39,31 @@ class sex_classifier:
 	#to do feature extraction on data without silence
 	def callback(self, data):
 		data  = np.array(data.data,dtype = np.int16)
-		if self.PLAYBACK:
-			self.stream.write(np.asarray(data))
+		
+		
 		#data = self.convData(data.data)
 		data_no_silence = no_silence(data, self.sample_rate) #remove all silence part from audio
-		features = feature_extraction(data_no_silence, self.sample_rate, 0.05*self.sample_rate, 0.025*self.sample_rate)
-		print "feature shape = " + str(np.shape(features))
-		features = features.transpose()
-		res = self.svm.predict(features) #transpose cuz sklearn accepts [samples][features] format
-		res = res.tolist()
-		male_confidence = (float(res.count(self.MALE))/len(res)) * 100
-		sex_str = 'Male' if male_confidence > 50 else 'Female'
-		sex_str += ' - confidence = ' + str(male_confidence) if male_confidence > 50 else str(100 - male_confidence)
-		self.sex_publisher.publish(sex_str)
-		#print 'male' if male_confidence > 50 else 'female'
-		#print 'confidence = ' + str(male_confidence) if male_confidence > 50 else str(100 - male_confidence)
+		print "len no silence = " + str(len(data_no_silence))
+		if len(data_no_silence) > 0.05*self.sample_rate:
+			#if no silence data is shorter than a single window, it's best not to continue
+			if self.PLAYBACK:
+				self.stream.write(np.asarray(data_no_silence))
+
+			print 'max = ' + str(max(data_no_silence))
+			print 'min = ' + str(min(data_no_silence))
+
+			features = feature_extraction(data_no_silence, self.sample_rate, 0.05*self.sample_rate, 0.025*self.sample_rate)
+			print "feature shape = " + str(np.shape(features))
+			features = features.transpose()
+			res = self.svm.predict(features) #transpose cuz sklearn accepts [samples][features] format
+			res = res.tolist()
+			male_confidence = (float(res.count(self.MALE))/len(res)) * 100
+			sex_str = 'Male' if male_confidence > 50 else 'Female'
+			sex_str += ' - confidence = ' + str(male_confidence) if male_confidence > 50 else str(100 - male_confidence)
+			self.sex_publisher.publish(sex_str)
+			print sex_str
+			#print 'male' if male_confidence > 50 else 'female'
+			#print 'confidence = ' + str(male_confidence) if male_confidence > 50 else str(100 - male_confidence)
 
 
 if __name__ == '__main__':

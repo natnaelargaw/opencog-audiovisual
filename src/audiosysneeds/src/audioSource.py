@@ -31,7 +31,7 @@ class AudioSysNeeds:
         rospy.Subscriber('/opencog/audio_raw_data', numpy_msg(Floats), self.audio_callback)
         self.d = deque()
         self.loop = 0
-        self.RATE = 44100
+        self.RATE = 16000
         self.CHANNELS = 1
         
 
