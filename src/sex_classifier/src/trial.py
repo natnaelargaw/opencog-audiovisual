@@ -11,6 +11,11 @@ from std_msgs.msg import Int16MultiArray
 import wave
 import matplotlib.pyplot as plt
 
+'''
+	This is only an experimental code. 
+'''
+
+
 
 audio = pyaudio.PyAudio()
 stream = audio.open(format=pyaudio.paInt16, channels=1, 
