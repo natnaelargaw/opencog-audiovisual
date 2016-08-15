@@ -1,4 +1,0 @@
-<launch>
-	<node pkg="audiosysneeds" name="audio_publisher" type="recorder.py" />
-	<node pkg="vad" name="voice_activity_detector" type="vad_node.py" />
-</launch>
