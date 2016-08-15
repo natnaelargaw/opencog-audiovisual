@@ -1,3 +1,6 @@
+Depends on:
+	scikit-learn > v17
+
 The sex_classifier node listens on topic 'voice_activity' which the node that detects voice
 publish on when some voice activity is detected. 
 
