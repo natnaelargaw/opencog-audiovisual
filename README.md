@@ -80,7 +80,7 @@ Install them using the following shell script
   - Value: array of audio raw data
 6. /opencog/speaker_sex
   - message type: String
-  - Value: Male/Female - Confidence ##%
+  - Value: Male/Female(String) - Confidence ##%
 7. /opencog/speakersNo
   - message type:
   - Value:
