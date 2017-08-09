@@ -39,7 +39,8 @@
 ------------
  - Middle ware     - ROS/indigo
  - Dev. Language   - Python v2.7/rospy
- - Audio Package   - PyAudiov0.2.9
+ - Audio Package   - PyAudio >= v0.2.9
+                   - Sklearn >= v0.17.1
  - Vison Package   - Opencv v2.4.13
 </br> 
 Install them using the following shell script
@@ -71,9 +72,15 @@ Install them using the following shell script
 5. /opencog/roomsilence
   - message type:
   - Value:
-6. /opencog/sex
-  - message type:
-  - Value:
+6. /opencog/audio_raw_data
+  - message type: numpy_msgs(Floats)
+  - Value: array of audio raw data
+6. /opencog/voice_activity
+  - message type: numpy_msg(Floats)
+  - Value: array of audio raw data
+6. /opencog/speaker_sex
+  - message type: String
+  - Value: Male/Female(String) - Confidence ##%
 7. /opencog/speakersNo
   - message type:
   - Value:
@@ -110,10 +117,3 @@ Install them using the following shell script
 ###Visual System Needs
 ------------
  The room occupation and silence nodes are based on the size and number of contours on filtered and background subtracted images. The nearer the ROI the higher its impact is. (e.g. man waving his hand near to the front camera). Hence, incorporating depth data of ROI's should be the next task here.
-
-
-
-
-
-
-

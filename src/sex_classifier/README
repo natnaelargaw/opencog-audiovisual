@@ -1,0 +1,14 @@
+Depends on:
+	scikit-learn > v17
+
+The sex_classifier node listens on topic 'voice_activity' which the node that detects voice
+publish on when some voice activity is detected. 
+
+The vad publishes a frame of audio it thinks contains voice activity. 
+after which this node does some feature extraction and svm classification. 
+
+After classification is done, result is published on the 'opencog/speaker_sex/' topic
+along with simple confidence percentage.
+
+The trained model is located in the 'model' directory. It's a pickle binary format. 
+

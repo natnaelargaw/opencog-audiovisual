@@ -1,14 +1,12 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(visualsysneeds)
+project(audio_recorder)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  cv_bridge
-  image_transport
-  roscpp
   rospy
+  std_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -68,7 +66,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
+#   std_msgs
 # )
 
 ################################################
@@ -102,8 +100,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES visualsysneeds
-#  CATKIN_DEPENDS cv_bridge image_transport roscpp rospy
+#  LIBRARIES audio_recorder
+#  CATKIN_DEPENDS rospy std_msgs
 #  DEPENDS system_lib
 )
 
@@ -119,24 +117,24 @@ include_directories(
 )
 
 ## Declare a C++ library
-# add_library(visualsysneeds
-#   src/${PROJECT_NAME}/visualsysneeds.cpp
+# add_library(audio_recorder
+#   src/${PROJECT_NAME}/audio_recorder.cpp
 # )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(visualsysneeds ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(audio_recorder ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-# add_executable(visualsysneeds_node src/visualsysneeds_node.cpp)
+# add_executable(audio_recorder_node src/audio_recorder_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(visualsysneeds_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(audio_recorder_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(visualsysneeds_node
+# target_link_libraries(audio_recorder_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -155,7 +153,7 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS visualsysneeds visualsysneeds_node
+# install(TARGETS audio_recorder audio_recorder_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -180,18 +178,10 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_visualsysneeds.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_audio_recorder.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-include_directories(include ${catkin_INCLUDE_DIRS})
-
-add_executable(video src/video.cpp)
-target_link_libraries(video ${catkin_LIBRARIES})
-
-
-
-

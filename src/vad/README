@@ -1,0 +1,8 @@
+This node, listens on the main audio publisher (recorder) and examines frames of audio 
+checking if it contains voice activity. 
+The VAD is very inefficient as it uses LTSD to mark certain segment as voice and because of 
+this, any sound that can stand out from sound in previous frames could trigger the VAD to think 
+it got voice activity. 
+
+it listens to 'opencog/audio_raw_data' 
+when it thinks it detected voice activity, it publishes on 'opencog/voice_activity'
